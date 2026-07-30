@@ -26,7 +26,7 @@ extension Tagged where Underlying: BinaryFloatingPoint {
     /// stays reachable from every generic context.
     @inlinable
     public static func _quantize<S>(_ value: Underlying, in space: S.Type) -> Self {
-        // swiftlint:disable:next no_any_protocol_existential  // reason: runtime conformance check against an existential metatype, per the doc comment above — the only way to make quantization reachable from a call site generic over `Space` (see F-002 remediation note below).
+        // swiftlint:disable:next no_any_protocol_existential - runtime conformance check against an existential metatype, per the doc comment above, the only way to make quantization reachable from a call site generic over `Space` (see F-002 remediation note below)
         guard let quantized = S.self as? any Numeric.Quantized.Type else {
             return Self(_unchecked: value)
         }
