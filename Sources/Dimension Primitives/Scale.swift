@@ -46,7 +46,7 @@ extension Scale: Hashable where Scalar: Hashable & FloatingPoint {
     /// Hashes the scale's factors into the given hasher.
     @inlinable
     public func hash(into hasher: inout Hasher) {
-        for i in 0..<N {
+        (0..<N).forEach { i in
             hasher.combine(factors[i])
         }
     }
@@ -232,7 +232,7 @@ extension Scale where Scalar: FloatingPoint {
         with rhs: Self
     ) -> Self {
         var result = lhs.factors
-        for i in 0..<N {
+        (0..<N).forEach { i in
             result[i] = lhs.factors[i] * rhs.factors[i]
         }
         return Self(result)
@@ -251,7 +251,7 @@ extension Scale where Scalar: FloatingPoint {
     @inlinable
     public static func inverted(_ scale: Self) -> Self {
         var result = scale.factors
-        for i in 0..<N {
+        (0..<N).forEach { i in
             result[i] = 1 / scale.factors[i]
         }
         return Self(result)
