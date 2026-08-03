@@ -46,7 +46,7 @@ extension Scale: Hashable where Scalar: Hashable & FloatingPoint {
     /// Hashes the scale's factors into the given hasher.
     @inlinable
     public func hash(into hasher: inout Hasher) {
-        for i in 0..<N {
+        (0..<N).forEach { i in
             hasher.combine(factors[i])
         }
     }
@@ -66,11 +66,6 @@ extension Scale: Comparable where N == 1, Scalar: FloatingPoint {
 
 #if !hasFeature(Embedded)
     extension Scale: Codable where Scalar: Codable, Scalar: FloatingPoint {
-        // swiftlint:disable no_any_protocol_existential typed_throws_required
-        // reason: Codable witnesses — `init(from: any Decoder) throws` and
-        // `encode(to: any Encoder) throws` are stdlib-protocol-mandated signatures;
-        // neither typed throws nor a concrete (non-`any`) parameter is expressible
-        // (the no_any_protocol_existential rule message sanctions this opt-out).
         /// Decodes a scale from an unkeyed container of per-dimension factors.
         public init(from decoder: any Decoder) throws {
             var container = try decoder.unkeyedContainer()
@@ -88,7 +83,6 @@ extension Scale: Comparable where N == 1, Scalar: FloatingPoint {
                 try container.encode(factors[i])
             }
         }
-        // swiftlint:enable no_any_protocol_existential typed_throws_required
     }
 #endif
 
@@ -232,7 +226,7 @@ extension Scale where Scalar: FloatingPoint {
         with rhs: Self
     ) -> Self {
         var result = lhs.factors
-        for i in 0..<N {
+        (0..<N).forEach { i in
             result[i] = lhs.factors[i] * rhs.factors[i]
         }
         return Self(result)
@@ -251,7 +245,7 @@ extension Scale where Scalar: FloatingPoint {
     @inlinable
     public static func inverted(_ scale: Self) -> Self {
         var result = scale.factors
-        for i in 0..<N {
+        (0..<N).forEach { i in
             result[i] = 1 / scale.factors[i]
         }
         return Self(result)

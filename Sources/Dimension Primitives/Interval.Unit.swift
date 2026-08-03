@@ -276,11 +276,6 @@ where Scalar: ExpressibleByIntegerLiteral {
 
 #if !hasFeature(Embedded)
     extension Interval.Unit: Codable where Scalar: Codable {
-        // swiftlint:disable no_any_protocol_existential typed_throws_required
-        // reason: Codable witnesses — `init(from: any Decoder) throws` and
-        // `encode(to: any Encoder) throws` are stdlib-protocol-mandated signatures;
-        // neither typed throws nor a concrete (non-`any`) parameter is expressible
-        // (the no_any_protocol_existential rule message sanctions this opt-out).
         /// Decodes a unit value, failing if the decoded value is out of bounds.
         public init(from decoder: any Decoder) throws {
             let container = try decoder.singleValueContainer()
@@ -302,7 +297,6 @@ where Scalar: ExpressibleByIntegerLiteral {
             var container = encoder.singleValueContainer()
             try container.encode(_storage)
         }
-        // swiftlint:enable no_any_protocol_existential typed_throws_required
     }
 #endif
 
