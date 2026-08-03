@@ -66,11 +66,6 @@ extension Scale: Comparable where N == 1, Scalar: FloatingPoint {
 
 #if !hasFeature(Embedded)
     extension Scale: Codable where Scalar: Codable, Scalar: FloatingPoint {
-        // swiftlint:disable no_any_protocol_existential typed_throws_required
-        // reason: Codable witnesses — `init(from: any Decoder) throws` and
-        // `encode(to: any Encoder) throws` are stdlib-protocol-mandated signatures;
-        // neither typed throws nor a concrete (non-`any`) parameter is expressible
-        // (the no_any_protocol_existential rule message sanctions this opt-out).
         /// Decodes a scale from an unkeyed container of per-dimension factors.
         public init(from decoder: any Decoder) throws {
             var container = try decoder.unkeyedContainer()
@@ -88,7 +83,6 @@ extension Scale: Comparable where N == 1, Scalar: FloatingPoint {
                 try container.encode(factors[i])
             }
         }
-        // swiftlint:enable no_any_protocol_existential typed_throws_required
     }
 #endif
 
