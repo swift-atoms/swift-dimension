@@ -42,7 +42,10 @@ extension Tagged where Underlying: BinaryFloatingPoint {
     /// generic parameter here triggers implicit existential opening
     /// (SE-0352) so `Q` binds to the concrete underlying type.
     @inlinable
-    public static func _quantize<Q: Numeric.Quantized>(_ value: Underlying, quantizedBy space: Q.Type) -> Self {
+    public static func _quantize<Q: Numeric.Quantized>(
+        _ value: Underlying,
+        quantizedBy space: Q.Type
+    ) -> Self {
         let q = Q.quantum(as: Underlying.self)
         let ticks = Int64((value / q).rounded())
         return Self(_unchecked: Underlying(ticks) * q)

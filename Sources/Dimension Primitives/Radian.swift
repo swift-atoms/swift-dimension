@@ -82,7 +82,9 @@ extension Angle.Radian {
         public var sixth: Radian<Scalar> { Radian(_unchecked: .pi / 6) }
 
         /// Typealias for compile-time fraction of π.
-        public typealias Fraction<let Numerator: Int, let Denominator: Int> = Numeric.Fraction<Numerator, Denominator, Radian<Scalar>>
+        public typealias Fraction<let Numerator: Int, let Denominator: Int> = Numeric.Fraction<
+            Numerator, Denominator, Radian<Scalar>
+        >
 
         /// Access arbitrary fraction of π with compile-time integer parameters.
         ///
@@ -91,7 +93,9 @@ extension Angle.Radian {
         /// Radian<Double>.pi.fraction<3, 4>()()  // 3π/4
         /// ```
         @inlinable
-        public func fraction<let Numerator: Int, let Denominator: Int>() -> Fraction<Numerator, Denominator> {
+        public func fraction<let Numerator: Int, let Denominator: Int>() -> Fraction<
+            Numerator, Denominator
+        > {
             .init(Radian(_unchecked: .pi * Scalar(Numerator) / Scalar(Denominator)))
         }
     }
