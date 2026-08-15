@@ -103,7 +103,9 @@ extension Angle.Degree {
         public var quarter: Degree<Scalar> { Degree(_unchecked: 22.5) }
 
         /// Typealias for compile-time fraction of 90°.
-        public typealias Fraction<let Numerator: Int, let Denominator: Int> = Numeric.Fraction<Numerator, Denominator, Degree<Scalar>>
+        public typealias Fraction<let Numerator: Int, let Denominator: Int> = Numeric.Fraction<
+            Numerator, Denominator, Degree<Scalar>
+        >
 
         /// Access arbitrary fraction of 90° with compile-time integer parameters.
         ///
@@ -112,7 +114,9 @@ extension Angle.Degree {
         /// Degree<Double>.right.fraction<1, 6>()()  // 15°
         /// ```
         @inlinable
-        public func fraction<let Numerator: Int, let Denominator: Int>() -> Fraction<Numerator, Denominator> {
+        public func fraction<let Numerator: Int, let Denominator: Int>() -> Fraction<
+            Numerator, Denominator
+        > {
             .init(Degree(_unchecked: 90 * Scalar(Numerator) / Scalar(Denominator)))
         }
     }
@@ -143,11 +147,15 @@ extension Angle.Degree {
         public var quarter: Degree<Scalar> { Degree(_unchecked: 45) }
 
         /// Typealias for compile-time fraction of 180°.
-        public typealias Fraction<let Numerator: Int, let Denominator: Int> = Numeric.Fraction<Numerator, Denominator, Degree<Scalar>>
+        public typealias Fraction<let Numerator: Int, let Denominator: Int> = Numeric.Fraction<
+            Numerator, Denominator, Degree<Scalar>
+        >
 
         /// Access arbitrary fraction of 180° with compile-time integer parameters.
         @inlinable
-        public func fraction<let Numerator: Int, let Denominator: Int>() -> Fraction<Numerator, Denominator> {
+        public func fraction<let Numerator: Int, let Denominator: Int>() -> Fraction<
+            Numerator, Denominator
+        > {
             .init(Degree(_unchecked: 180 * Scalar(Numerator) / Scalar(Denominator)))
         }
     }
@@ -182,7 +190,9 @@ extension Angle.Degree {
         public var sixth: Degree<Scalar> { Degree(_unchecked: 60) }
 
         /// Typealias for compile-time fraction of 360°.
-        public typealias Fraction<let Numerator: Int, let Denominator: Int> = Numeric.Fraction<Numerator, Denominator, Degree<Scalar>>
+        public typealias Fraction<let Numerator: Int, let Denominator: Int> = Numeric.Fraction<
+            Numerator, Denominator, Degree<Scalar>
+        >
 
         /// Access arbitrary fraction of 360° with compile-time integer parameters.
         ///
@@ -191,7 +201,9 @@ extension Angle.Degree {
         /// Degree<Double>.full.fraction<5, 6>()()   // 300°
         /// ```
         @inlinable
-        public func fraction<let Numerator: Int, let Denominator: Int>() -> Fraction<Numerator, Denominator> {
+        public func fraction<let Numerator: Int, let Denominator: Int>() -> Fraction<
+            Numerator, Denominator
+        > {
             .init(Degree(_unchecked: 360 * Scalar(Numerator) / Scalar(Denominator)))
         }
     }

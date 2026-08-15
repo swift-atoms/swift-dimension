@@ -62,19 +62,27 @@ extension Tagged where Underlying: SignedNumeric {
 
 /// Returns the absolute value of a tagged value.
 @inlinable
-public func abs<Tag: ~Copyable & ~Escapable, T: SignedNumeric & Comparable>(_ x: Tagged<Tag, T>) -> Tagged<Tag, T> {
+public func abs<Tag: ~Copyable & ~Escapable, T: SignedNumeric & Comparable>(
+    _ x: Tagged<Tag, T>
+) -> Tagged<Tag, T> {
     x.map { abs($0) }
 }
 
 /// Returns the minimum of two tagged values.
 @inlinable
-public func min<Tag: ~Copyable & ~Escapable, T: Comparable>(_ x: Tagged<Tag, T>, _ y: Tagged<Tag, T>) -> Tagged<Tag, T> {
+public func min<Tag: ~Copyable & ~Escapable, T: Comparable>(
+    _ x: Tagged<Tag, T>,
+    _ y: Tagged<Tag, T>
+) -> Tagged<Tag, T> {
     x.underlying <= y.underlying ? x : y
 }
 
 /// Returns the maximum of two tagged values.
 @inlinable
-public func max<Tag: ~Copyable & ~Escapable, T: Comparable>(_ x: Tagged<Tag, T>, _ y: Tagged<Tag, T>) -> Tagged<Tag, T> {
+public func max<Tag: ~Copyable & ~Escapable, T: Comparable>(
+    _ x: Tagged<Tag, T>,
+    _ y: Tagged<Tag, T>
+) -> Tagged<Tag, T> {
     x.underlying >= y.underlying ? x : y
 }
 
