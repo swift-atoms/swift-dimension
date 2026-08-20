@@ -1,15 +1,15 @@
-// swift-tools-version: 6.3.3
+// swift-tools-version: 6.4
 
 import PackageDescription
 
 let package = Package(
     name: "swift-dimension-primitives",
     platforms: [
-        .macOS("27"),
-        .iOS("27"),
-        .tvOS("27"),
-        .watchOS("27"),
-        .visionOS("27")
+        .macOS(.v27),
+        .iOS(.v27),
+        .tvOS(.v27),
+        .watchOS(.v27),
+        .visionOS(.v27),
     ],
     products: [
         .library(
@@ -19,15 +19,33 @@ let package = Package(
         .library(
             name: "Dimension Primitives Test Support",
             targets: ["Dimension Primitives Test Support"]
-        )
+        ),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-primitives/swift-axis-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-direction-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-finite-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-tagged-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-numeric-primitives.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-pair-primitives.git", branch: "main"),
+        .package(
+            url: "https://github.com/swift-primitives/swift-axis-primitives.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-direction-primitives.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-finite-primitives.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-tagged-primitives.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-numeric-primitives.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-primitives/swift-pair-primitives.git",
+            branch: "main"
+        ),
     ],
     targets: [
         .target(
@@ -46,7 +64,10 @@ let package = Package(
             name: "Dimension Primitives Test Support",
             dependencies: [
                 "Dimension Primitives",
-                .product(name: "Finite Primitives Test Support", package: "swift-finite-primitives"),
+                .product(
+                    name: "Finite Primitives Test Support",
+                    package: "swift-finite-primitives"
+                ),
             ],
             path: "Tests/Support"
         ),
