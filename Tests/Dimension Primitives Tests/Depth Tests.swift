@@ -1,11 +1,7 @@
-// Depth Tests.swift
-
 import Direction_Primitive
 import Testing
 
 @testable import Dimension_Primitives
-
-// MARK: - Depth - Static Functions
 
 @Suite
 struct `Depth - Static Functions` {
@@ -24,8 +20,6 @@ struct `Depth - Static Functions` {
         #expect(Depth.opposite(of: .backward) == .forward)
     }
 }
-
-// MARK: - Depth - Properties
 
 @Suite
 struct `Depth - Properties` {
@@ -75,8 +69,6 @@ struct `Depth - Properties` {
     }
 }
 
-// MARK: - Depth - Initializers
-
 @Suite
 struct `Depth - Initializers` {
     @Test
@@ -104,8 +96,6 @@ struct `Depth - Initializers` {
         #expect(Depth(false) == .backward)
     }
 }
-
-// MARK: - Depth - Protocol Conformances
 
 @Suite
 struct `Depth - Protocol Conformances` {
@@ -147,8 +137,6 @@ struct `Depth - Protocol Conformances` {
         #expect(desc == "forward" || desc == "backward")
     }
 }
-
-// MARK: - Depth - Operators
 
 @Suite
 struct `Depth - Operators` {

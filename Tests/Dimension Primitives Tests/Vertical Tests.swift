@@ -1,11 +1,7 @@
-// Vertical Tests.swift
-
 import Direction_Primitive
 import Testing
 
 @testable import Dimension_Primitives
-
-// MARK: - Vertical - Static Functions
 
 @Suite
 struct `Vertical - Static Functions` {
@@ -24,8 +20,6 @@ struct `Vertical - Static Functions` {
         #expect(Vertical.opposite(of: .downward) == .upward)
     }
 }
-
-// MARK: - Vertical - Properties
 
 @Suite
 struct `Vertical - Properties` {
@@ -75,8 +69,6 @@ struct `Vertical - Properties` {
     }
 }
 
-// MARK: - Vertical - Initializers
-
 @Suite
 struct `Vertical - Initializers` {
     @Test
@@ -104,8 +96,6 @@ struct `Vertical - Initializers` {
         #expect(Vertical(false) == .downward)
     }
 }
-
-// MARK: - Vertical - Protocol Conformances
 
 @Suite
 struct `Vertical - Protocol Conformances` {
@@ -147,8 +137,6 @@ struct `Vertical - Protocol Conformances` {
         #expect(desc == "upward" || desc == "downward")
     }
 }
-
-// MARK: - Vertical - Operators
 
 @Suite
 struct `Vertical - Operators` {

@@ -1,11 +1,7 @@
-// Direction Tests.swift
-
 import Direction_Primitive
 import Testing
 
 @testable import Dimension_Primitives
-
-// MARK: - Direction - Static Functions
 
 @Suite
 struct `Direction - Static Functions` {
@@ -24,8 +20,6 @@ struct `Direction - Static Functions` {
         #expect(Direction.opposite(of: .negative) == .positive)
     }
 }
-
-// MARK: - Direction - Properties
 
 @Suite
 struct `Direction - Properties` {
@@ -69,8 +63,6 @@ struct `Direction - Properties` {
     }
 }
 
-// MARK: - Direction - Operators
-
 @Suite
 struct `Direction - Operators` {
     @Test(arguments: [Direction.positive, Direction.negative])
@@ -88,8 +80,6 @@ struct `Direction - Operators` {
         #expect(!Direction.negative == .positive)
     }
 }
-
-// MARK: - Direction - Initializers
 
 @Suite
 struct `Direction - Initializers` {
@@ -121,8 +111,6 @@ struct `Direction - Initializers` {
         #expect(Direction(false) == .negative)
     }
 }
-
-// MARK: - Direction - Protocol Conformances
 
 @Suite
 struct `Direction - Protocol Conformances` {

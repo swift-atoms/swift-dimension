@@ -1,33 +1,14 @@
-// Vertical.swift
-// Vertical (Y) axis orientation and oriented values.
-
 public import Direction_Primitive
 
-/// Y-axis orientation: upward or downward.
-///
-/// `Vertical` specifies which direction along the Y-axis is considered positive. Upward is standard Cartesian (math, PDF), while downward is common for screen coordinates (CSS, many graphics APIs).
-///
-/// ## Example
-///
-/// ```swift
-/// let cartesian: Vertical = .upward    // Math: Y increases up
-/// let screen: Vertical = .downward     // CSS: Y increases down
-///
-/// // Oriented value with direction
-/// let offset = Vertical.Value(.upward, 10.0)
-/// ```
 public enum Vertical: Sendable, Hashable {
-    /// Y-axis increases upward (standard Cartesian, PDF).
+
     case upward
 
-    /// Y-axis increases downward (screen coordinates, CSS).
     case downward
 }
 
-// MARK: - Orientation Conformance (Static Implementation)
-
 extension Vertical {
-    /// Returns the opposite of a vertical orientation.
+
     @inlinable
     public static func opposite(of orientation: Vertical) -> Vertical {
         switch orientation {
@@ -37,10 +18,8 @@ extension Vertical {
     }
 }
 
-// MARK: - Orientation Conformance (Instance Convenience)
-
 extension Vertical: Orientation {
-    /// Returns the canonical direction representation.
+
     @inlinable
     public var direction: Direction {
         switch self {
@@ -49,7 +28,6 @@ extension Vertical: Orientation {
         }
     }
 
-    /// Creates a vertical orientation from a canonical direction.
     @inlinable
     public init(direction: Direction) {
         switch direction {
@@ -58,32 +36,25 @@ extension Vertical: Orientation {
         }
     }
 
-    /// Returns the opposite orientation.
     @inlinable
     public var opposite: Vertical {
         Self.opposite(of: self)
     }
 
-    /// All vertical orientations.
     public static let allCases: [Vertical] = [.upward, .downward]
 }
 
-// MARK: - Pattern Matching Support
-
 extension Vertical {
-    /// Whether orientation is upward.
+
     @inlinable
     public var isUpward: Bool { self == .upward }
 
-    /// Whether orientation is downward.
     @inlinable
     public var isDownward: Bool { self == .downward }
 }
 
-// MARK: - CustomStringConvertible
-
 extension Vertical: CustomStringConvertible {
-    /// A textual representation of the orientation ("upward" or "downward").
+
     public var description: String {
         switch self {
         case .upward: return "upward"
@@ -91,8 +62,6 @@ extension Vertical: CustomStringConvertible {
         }
     }
 }
-
-// MARK: - Codable
 
 #if !hasFeature(Embedded)
     extension Vertical: Codable {}

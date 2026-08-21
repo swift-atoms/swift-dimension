@@ -1,15 +1,6 @@
-//
-//  Quantized Tests.swift
-//  swift-standards
-//
-//  Tests for the Quantized protocol.
-//
-
 import Dimension_Primitives
 import Numeric_Primitives_Core
 import Testing
-
-// MARK: - Test Space
 
 enum TestQuantizedSpace: Numeric.Quantized {}
 
@@ -17,8 +8,6 @@ extension TestQuantizedSpace {
     typealias Scalar = Double
     static var quantum: Double { 0.01 }
 }
-
-// MARK: - Tests
 
 @Suite
 struct `Quantized Tests` {

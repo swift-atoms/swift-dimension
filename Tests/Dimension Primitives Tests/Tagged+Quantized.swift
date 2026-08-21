@@ -1,15 +1,6 @@
-//
-//  Tagged+Quantized Tests.swift
-//  swift-standards
-//
-//  Tests for Tagged quantized arithmetic and tick-based equality.
-//
-
 @_spi(Internal) import Dimension_Primitives
 import Numeric_Primitives_Core
 import Testing
-
-// MARK: - Test Space
 
 private enum TestSpace: Numeric.Quantized {}
 
@@ -18,8 +9,6 @@ extension TestSpace {
     static var quantum: Double { 0.01 }
 }
 
-// MARK: - Type Aliases
-
 private typealias QX = Coordinate.X<TestSpace>.Value<Double>
 private typealias QY = Coordinate.Y<TestSpace>.Value<Double>
 private typealias QDx = Displacement.X<TestSpace>.Value<Double>
@@ -27,17 +16,9 @@ private typealias QDy = Displacement.Y<TestSpace>.Value<Double>
 private typealias QMag = Magnitude<TestSpace>.Value<Double>
 private typealias QExtX = Extent.X<TestSpace>.Value<Double>
 
-// MARK: - Generic-Context Equality Probe
-
-/// Compares through the `Equatable` protocol requirement in a generic
-/// context, exactly as `Set`, `Dictionary`, `Array.contains`, and any
-/// `func f<T: Equatable>` do — dispatched via the protocol witness table
-/// rather than a concrete-type static `==` lookup.
 private func genericEqual<T: Equatable>(_ lhs: T, _ rhs: T) -> Bool {
     lhs == rhs
 }
-
-// MARK: - Tests
 
 @Suite
 struct `Tagged+Quantized` {
@@ -72,7 +53,7 @@ struct `Tagged+Quantized` {
         @Test
         func `equal ticks are equal`() {
             let x1: QX = .init(149.4)
-            let x2: QX = .init(149.4000000001)  // Same tick after quantization
+            let x2: QX = .init(149.4000000001)
             #expect(x1 == x2)
             #expect(x1.ticks == x2.ticks)
         }
@@ -175,18 +156,6 @@ struct `Tagged+Quantized` {
     @Suite
     struct `Canonical Quantization` {
 
-        // F-001 regression: the constrained `_quantize<S: Numeric.Quantized>`
-        // overload was never reachable from the generic `+`/`-` operators in
-        // Tagged+Arithmetic.swift (Space carries no static Quantized
-        // constraint at those call sites), so arithmetic results stored the
-        // raw floating-point sum instead of the canonical
-        // `Underlying(ticks) * quantum` bit pattern. `.ticks` re-quantizes on
-        // read and so masked the bug for tick-based comparisons; only the
-        // raw `.underlying` bits exposed it. These specific tick values were
-        // chosen because IEEE 754 double addition of their quantized
-        // representations (8867 * 0.01) + (-5951 * 0.01) does not bit-for-bit
-        // equal the canonically reconstructed (2916 * 0.01) — deterministic
-        // under IEEE 754, not a flaky proximity check.
         @Test
         func `coordinate + displacement produces canonical bit pattern, not raw float sum`() {
             let x: QX = .init(ticks: 8867)
@@ -201,35 +170,6 @@ struct `Tagged+Quantized` {
 
     @Suite
     struct `Compound Assignment` {
-
-        // F-001 residual regression: fixing `_quantize(_:in:)`'s entry point
-        // (the "Canonical Quantization" suite above) made the *direct*
-        // `+`/`-` operators reach quantization, but the 18 `+=`/`-=`
-        // compound-assignment operators over Coordinate (paired with
-        // Displacement, Magnitude, and Extent) still delegated as
-        // `lhs = lhs + rhs` from a body generic over
-        // `Scalar: AdditiveArithmetic`. At that call site `Scalar` is not
-        // statically known to conform to `BinaryFloatingPoint`, so overload
-        // resolution could only ever select the disfavored, non-quantizing
-        // `AdditiveArithmetic` sibling of `+`/`-` — never the quantizing
-        // `BinaryFloatingPoint` sibling — regardless of what concrete
-        // scalar the compound operator was later instantiated with. That
-        // reproduces the exact same "generic overload resolution is fixed
-        // against the abstract type parameter" defect described for
-        // `_quantize` itself, one call frame up. The fix adds a matching
-        // `Scalar: BinaryFloatingPoint`-constrained `+=`/`-=` overload for
-        // each of the 18 sites that calls `._quantize(_:in:)` directly,
-        // mirroring the direct operator's own implementation, instead of
-        // delegating through `+`/`-`.
-        //
-        // Each tick pair below was verified (via IEEE 754 double-precision
-        // arithmetic) to produce a raw-sum/raw-difference bit pattern that
-        // does not equal the canonically reconstructed `Underlying(ticks) *
-        // quantum` bit pattern — so pre-fix, `var d = x; d += y` (raw,
-        // unquantized) is bit-*unequal* to `x + y` (quantized since F-001),
-        // and this suite is RED. Post-fix both paths call the identical
-        // `._quantize` expression, so they are bit-*identical* by
-        // construction, not by chance, and this suite is GREEN.
 
         @Test
         func `coordinate += displacement matches direct addition's canonical bits`() {
@@ -313,24 +253,11 @@ struct `Tagged+Quantized` {
     @Suite
     struct `Equatable Hashable Coherence` {
 
-        // F-002 regression: a tick-based `==`/`!=` shadowed (but did not
-        // replace) the upstream bitwise `Equatable` conformance. That
-        // shadow was selected at a *direct* call site (concrete types
-        // known, as below) but never at a *generic* one (Set, Dictionary,
-        // Array.contains, or any `func f<T: Equatable>`), which always
-        // dispatches through the protocol witness table to the unmodified
-        // bitwise conformance. `_unchecked` construction (public, and used
-        // by `ExpressibleByFloatLiteral` upstream) bypasses quantization,
-        // so two values can share a tick while holding different bits —
-        // exactly the case that used to make direct and generic equality
-        // disagree.
         @Test
         func `direct and generic equality contexts agree for same-tick, different-bit values`() {
             let x1 = QX(_unchecked: 123.401)
             let x2 = QX(_unchecked: 123.404)
 
-            // Precondition for the regression to be meaningful: same grid
-            // point, distinguishable bits.
             #expect(x1.ticks == x2.ticks)
             #expect(x1.underlying.bitPattern != x2.underlying.bitPattern)
 
@@ -346,16 +273,13 @@ struct `Tagged+Quantized` {
             let start: QY = .init(84.0)
             let step: QDy = .init(21.8)
 
-            // Path 1: Add step by step
             let row1End = start + step
             let row2End = row1End + step
             let row3End = row2End + step
 
-            // Path 2: Add total directly
-            let total: QDy = .init(65.4)  // 3 * 21.8
+            let total: QDy = .init(65.4)
             let spanEnd = start + total
 
-            // Both should be tick 14940
             #expect(row3End == spanEnd)
             #expect(row3End.ticks == spanEnd.ticks)
             #expect(row3End.ticks == 14940)
@@ -370,7 +294,6 @@ struct `Tagged+Quantized` {
             let accumulated = start + step + step + step
             let direct = start + total
 
-            // Same tick means identical IEEE 754 bits
             #expect(accumulated.underlying.bitPattern == direct.underlying.bitPattern)
         }
     }

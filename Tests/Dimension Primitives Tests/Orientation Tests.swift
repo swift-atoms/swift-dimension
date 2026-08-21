@@ -1,5 +1,3 @@
-// Orientation Tests.swift
-
 import Direction_Primitive
 import Testing
 
@@ -7,7 +5,6 @@ import Testing
 
 @Suite
 struct `Orientation Tests` {
-    // MARK: - Protocol Requirements
 
     @Test
     func `All orientation types conform to Orientation`() {
@@ -41,17 +38,14 @@ struct `Orientation Tests` {
         checkInvolution(Temporal.past)
     }
 
-    // MARK: - Isomorphisms via Direction
-
     @Test
     func `All orientations are isomorphic to Direction`() {
-        // positive → domain-specific "positive"
+
         #expect(Horizontal(direction: .positive) == .rightward)
         #expect(Vertical(direction: .positive) == .upward)
         #expect(Depth(direction: .positive) == .forward)
         #expect(Temporal(direction: .positive) == .future)
 
-        // negative → domain-specific "negative"
         #expect(Horizontal(direction: .negative) == .leftward)
         #expect(Vertical(direction: .negative) == .downward)
         #expect(Depth(direction: .negative) == .backward)
@@ -88,8 +82,6 @@ struct `Orientation Tests` {
         checkRoundTrip(Temporal.past)
     }
 
-    // MARK: - Bool Isomorphism
-
     @Test
     func `Orientation from Bool`() {
         #expect(Direction(true) == .positive)
@@ -108,8 +100,6 @@ struct `Orientation Tests` {
         #expect(Horizontal.rightward.isPositive)
         #expect(Horizontal.leftward.isNegative)
     }
-
-    // MARK: - Generic Algorithms
 
     @Test
     func `Generic function works on any Orientation`() {
@@ -142,24 +132,18 @@ struct `Orientation Tests` {
     }
 }
 
-// MARK: - Sum ↔ Product Duality
-
 extension `Orientation Tests` {
     @Suite
     struct `Sum Product Duality` {
         @Test
         func `Enum Direction and struct orientations are isomorphic`() {
-            // Direction is the canonical (initial) orientation
-            // Other types interpret it in domain-specific contexts
 
-            // The isomorphism: Direction ≅ Horizontal ≅ Vertical ≅ Depth ≅ Temporal
             for dir in Direction.allCases {
                 let h = Horizontal(direction: dir)
                 let v = Vertical(direction: dir)
                 let d = Depth(direction: dir)
                 let t = Temporal(direction: dir)
 
-                // All map back to the same Direction
                 #expect(h.direction == dir)
                 #expect(v.direction == dir)
                 #expect(d.direction == dir)
@@ -169,14 +153,12 @@ extension `Orientation Tests` {
 
         @Test
         func `Struct wrapping enables composition`() {
-            // Because Horizontal wraps Direction, we can compose operations
+
             let h: Horizontal = .rightward
 
-            // Access the underlying direction
             let dir = h.direction
             #expect(dir == .positive)
 
-            // Use Direction's sign property
             #expect(h.direction.sign == 1)
             #expect(Horizontal.leftward.direction.sign == -1)
         }

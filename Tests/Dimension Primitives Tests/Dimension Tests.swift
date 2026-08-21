@@ -1,11 +1,7 @@
-// Dimension Tests.swift
-
 import Dimension_Primitives_Test_Support
 import Testing
 
 @testable import Dimension_Primitives
-
-// MARK: - Dimension Phantom Types
 
 @Suite
 struct `Dimension - Phantom Types` {
@@ -13,7 +9,7 @@ struct `Dimension - Phantom Types` {
 
     @Test
     func `Coordinate X type exists`() {
-        // Compile-time verification that phantom types are defined
+
         let _: Coordinate.X<TestSpace>? = nil
         #expect(true)
     }
@@ -52,8 +48,6 @@ struct `Dimension - Phantom Types` {
     }
 }
 
-// MARK: - Tagged Values with Dimension Types
-
 @Suite
 struct `Dimension - Tagged Values` {
     enum TestSpace {}
@@ -84,8 +78,6 @@ struct `Dimension - Tagged Values` {
         let x1: Coordinate.X<Space1>.Value<Double> = Tagged(10.0)
         let x2: Coordinate.X<Space2>.Value<Double> = Tagged(10.0)
 
-        // These are different types - cannot compare directly
-        // This is a compile-time safety feature
         #expect(type(of: x1) != type(of: x2))
     }
 

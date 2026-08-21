@@ -1,11 +1,7 @@
-// Tagged Tests.swift
-
 import Dimension_Primitives_Test_Support
 import Testing
 
 @testable import Dimension_Primitives
-
-// MARK: - Tagged - Static Functions
 
 @Suite
 struct `Tagged - Static Functions` {
@@ -40,8 +36,6 @@ struct `Tagged - Static Functions` {
         #expect(retagged == 42)
     }
 }
-
-// MARK: - Tagged - Properties
 
 @Suite
 struct `Tagged - Properties` {
@@ -78,8 +72,6 @@ struct `Tagged - Properties` {
         #expect(result1 == result2)
     }
 }
-
-// MARK: - Tagged - Initializers
 
 @Suite
 struct `Tagged - Initializers` {
@@ -121,8 +113,6 @@ struct `Tagged - Initializers` {
         #expect(tagged == true)
     }
 }
-
-// MARK: - Tagged - Protocol Conformances
 
 @Suite
 struct `Tagged - Protocol Conformances` {
@@ -167,8 +157,6 @@ struct `Tagged - Protocol Conformances` {
         #expect(result == 10)
     }
 }
-
-// MARK: - Tagged - Affine Arithmetic (Displacement)
 
 @Suite
 struct `Tagged - Displacement Arithmetic` {
@@ -222,8 +210,6 @@ struct `Tagged - Displacement Arithmetic` {
     }
 }
 
-// MARK: - Tagged - Affine Arithmetic (Coordinate + Displacement)
-
 @Suite
 struct `Tagged - Coordinate Displacement Arithmetic` {
     enum TestSpace {}
@@ -260,13 +246,6 @@ struct `Tagged - Coordinate Displacement Arithmetic` {
         #expect(result == 3.0)
     }
 
-    // Compound-assignment regression coverage (F-001 residual gap, fixed
-    // alongside `Tagged+Quantized.swift`'s "Compound Assignment" suite):
-    // `TestSpace` here does not conform to `Numeric.Quantized`, so these
-    // assert the non-quantized path — both the `BinaryFloatingPoint`
-    // (`Double`) and plain-`AdditiveArithmetic` (`Int`) compound-assignment
-    // overloads — is unchanged by adding the quantizing sibling overloads.
-
     @Test
     func `coordinate += displacement (Double, non-quantized space)`() {
         var x: Coordinate.X<TestSpace>.Value<Double> = Tagged(10.0)
@@ -299,8 +278,6 @@ struct `Tagged - Coordinate Displacement Arithmetic` {
         #expect(x == 7)
     }
 }
-
-// MARK: - Tagged - Angle Arithmetic
 
 @Suite
 struct `Tagged - Angle Arithmetic` {
@@ -356,8 +333,6 @@ struct `Tagged - Angle Arithmetic` {
     }
 }
 
-// MARK: - Tagged - Magnitude Arithmetic
-
 @Suite
 struct `Tagged - Magnitude Arithmetic` {
     enum TestSpace {}
@@ -402,8 +377,6 @@ struct `Tagged - Magnitude Arithmetic` {
     }
 }
 
-// MARK: - Tagged - Dimensional Arithmetic
-
 @Suite
 struct `Tagged - Dimensional Arithmetic` {
     enum TestSpace {}
@@ -441,8 +414,6 @@ struct `Tagged - Dimensional Arithmetic` {
     }
 }
 
-// MARK: - Tagged - Free Functions
-
 @Suite
 struct `Tagged - Free Functions` {
     enum TestSpace {}
@@ -470,8 +441,6 @@ struct `Tagged - Free Functions` {
         #expect(result == 20.0)
     }
 }
-
-// MARK: - Tagged - AdditiveArithmetic Zero
 
 @Suite
 struct `Tagged - Zero` {

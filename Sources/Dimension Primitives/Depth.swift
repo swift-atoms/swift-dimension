@@ -1,33 +1,14 @@
-// Depth.swift
-// Depth (Z) axis orientation and oriented values.
-
 public import Direction_Primitive
 
-/// Z-axis orientation: forward or backward.
-///
-/// `Depth` specifies which direction along the Z-axis is considered positive. Forward is left-handed (DirectX, Metal) with Z into the screen, while backward is right-handed (OpenGL, math) with Z out of the screen.
-///
-/// ## Example
-///
-/// ```swift
-/// let leftHanded: Depth = .forward    // DirectX, Metal: Z into screen
-/// let rightHanded: Depth = .backward  // OpenGL, math: Z out of screen
-///
-/// // Oriented value with direction
-/// let offset = Depth.Value(.forward, 10.0)
-/// ```
 public enum Depth: Sendable, Hashable {
-    /// Z-axis increases away from viewer (left-handed systems).
+
     case forward
 
-    /// Z-axis increases toward viewer (right-handed systems).
     case backward
 }
 
-// MARK: - Orientation Conformance (Static Implementation)
-
 extension Depth {
-    /// Returns the opposite of a depth orientation.
+
     @inlinable
     public static func opposite(of orientation: Depth) -> Depth {
         switch orientation {
@@ -37,10 +18,8 @@ extension Depth {
     }
 }
 
-// MARK: - Orientation Conformance (Instance Convenience)
-
 extension Depth: Orientation {
-    /// Returns the canonical direction representation.
+
     @inlinable
     public var direction: Direction {
         switch self {
@@ -49,7 +28,6 @@ extension Depth: Orientation {
         }
     }
 
-    /// Creates a depth orientation from a canonical direction.
     @inlinable
     public init(direction: Direction) {
         switch direction {
@@ -58,32 +36,25 @@ extension Depth: Orientation {
         }
     }
 
-    /// Returns the opposite orientation.
     @inlinable
     public var opposite: Depth {
         Self.opposite(of: self)
     }
 
-    /// All depth orientations.
     public static let allCases: [Depth] = [.forward, .backward]
 }
 
-// MARK: - Pattern Matching Support
-
 extension Depth {
-    /// Whether orientation is forward.
+
     @inlinable
     public var isForward: Bool { self == .forward }
 
-    /// Whether orientation is backward.
     @inlinable
     public var isBackward: Bool { self == .backward }
 }
 
-// MARK: - CustomStringConvertible
-
 extension Depth: CustomStringConvertible {
-    /// A textual representation of the orientation ("forward" or "backward").
+
     public var description: String {
         switch self {
         case .forward: return "forward"
@@ -91,8 +62,6 @@ extension Depth: CustomStringConvertible {
         }
     }
 }
-
-// MARK: - Codable
 
 #if !hasFeature(Embedded)
     extension Depth: Codable {}

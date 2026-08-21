@@ -1,29 +1,12 @@
-// Chirality.swift
-// Handedness (left or right).
-
-/// Handedness or chirality: left or right.
-///
-/// `Chirality` represents mirror-image asymmetry in coordinate systems, molecular structures, screw threads, or any left/right distinction. Mirror reflection swaps left and right chirality.
-///
-/// ## Example
-///
-/// ```swift
-/// let system: Chirality = .right   // Right-handed coordinate system (standard)
-/// let mirrored = !system           // .left
-/// let hand: Chirality.Value<Point> = Pair(.right, point)
-/// ```
 public enum Chirality: Sendable, Hashable, CaseIterable {
-    /// Left-handed (sinistral).
+
     case left
 
-    /// Right-handed (dextral).
     case right
 }
 
-// MARK: - Opposite (Static Implementation)
-
 extension Chirality {
-    /// Returns the opposite of a chirality (mirror image).
+
     @inlinable
     public static func opposite(of chirality: Chirality) -> Chirality {
         switch chirality {
@@ -33,44 +16,33 @@ extension Chirality {
     }
 }
 
-// MARK: - Opposite (Instance Convenience)
-
 extension Chirality {
-    /// Returns the opposite chirality (mirror image).
+
     @inlinable
     public var opposite: Chirality {
         Self.opposite(of: self)
     }
 
-    /// Returns the opposite chirality (prefix negation).
     @inlinable
     public static prefix func ! (value: Chirality) -> Chirality {
         Self.opposite(of: value)
     }
 
-    /// Returns the mirrored chirality.
     @inlinable
     public var mirrored: Chirality { opposite }
 }
 
-// MARK: - Coordinate System
-
 extension Chirality {
-    /// Standard right-handed coordinate system (OpenGL, mathematics).
+
     public static var standard: Chirality { .right }
 
-    /// Left-handed coordinate system (DirectX, some CAD systems).
     public static var directX: Chirality { .left }
 }
 
-// MARK: - Paired Value
-
 extension Chirality {
-    /// Value paired with chirality information.
+
     public typealias Value<Payload> = Pair<Chirality, Payload>
 }
-
-// MARK: - Codable
 
 #if !hasFeature(Embedded)
     extension Chirality: Codable {}

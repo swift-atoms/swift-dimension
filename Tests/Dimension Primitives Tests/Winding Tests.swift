@@ -1,10 +1,6 @@
-// Winding Tests.swift
-
 import Testing
 
 @testable import Dimension_Primitives
-
-// MARK: - Winding - Static Functions
 
 @Suite
 struct `Winding - Static Functions` {
@@ -24,8 +20,6 @@ struct `Winding - Static Functions` {
     }
 }
 
-// MARK: - Winding - Properties
-
 @Suite
 struct `Winding - Properties` {
     @Test(arguments: [Winding.clockwise, Winding.counterclockwise])
@@ -44,8 +38,6 @@ struct `Winding - Properties` {
     }
 }
 
-// MARK: - Winding - Operators
-
 @Suite
 struct `Winding - Operators` {
     @Test(arguments: [Winding.clockwise, Winding.counterclockwise])
@@ -63,8 +55,6 @@ struct `Winding - Operators` {
         #expect(!Winding.counterclockwise == .clockwise)
     }
 }
-
-// MARK: - Winding - Protocol Conformances
 
 @Suite
 struct `Winding - Protocol Conformances` {
@@ -100,8 +90,6 @@ struct `Winding - Protocol Conformances` {
         #expect(set.count == 2)
     }
 }
-
-// MARK: - Winding - Value Typealias
 
 @Suite
 struct `Winding - Value Typealias` {

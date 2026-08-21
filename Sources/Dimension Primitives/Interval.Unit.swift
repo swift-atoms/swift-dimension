@@ -1,67 +1,15 @@
-// Interval.Unit.swift
-// A value in the closed unit interval [0, 1].
-
-// MARK: - Unit Struct
-
 extension Interval where Scalar: BinaryFloatingPoint {
-    /// A value in the closed unit interval [0, 1].
-    ///
-    /// `Interval.Unit` represents normalized continuous values commonly used for
-    /// opacity, alpha, progress, interpolation parameters, and other fractional quantities.
-    ///
-    /// ## Mathematical Properties
-    ///
-    /// The unit interval [0, 1] forms a monoid under multiplication:
-    /// - Closed: `Unit * Unit = Unit` (product of values in [0,1] stays in [0,1])
-    /// - Associative: `(a * b) * c = a * (b * c)`
-    /// - Identity: `Unit.one` (1 * x = x)
-    ///
-    /// ## Example
-    ///
-    /// ```swift
-    /// let opacity: Interval<Double>.Unit = .half
-    /// let layerAlpha: Opacity<Double> = Opacity(0.8)!
-    ///
-    /// // Compose opacities by multiplication
-    /// let combined = opacity * layerAlpha  // 0.4
-    ///
-    /// // Complement for inverse
-    /// let transparency = opacity.complement  // 0.5
-    ///
-    /// // Linear interpolation
-    /// let blended = Opacity<Double>.zero.interpolated(to: .one, at: opacity)
-    /// ```
+
     public struct Unit {
-        /// The underlying value in [0, 1].
+
         @usableFromInline internal var _storage: Scalar
 
-        // MARK: - Initializers
-
-        /// Creates a unit value if within bounds and finite.
-        ///
-        /// Returns `nil` if `value` is outside [0, 1] or is non-finite.
-        ///
-        /// - Parameter value: A scalar value.
-        ///
-        /// ## Example
-        ///
-        /// ```swift
-        /// let valid = Interval<Double>.Unit(0.5)    // Optional(0.5)
-        /// let invalid = Interval<Double>.Unit(1.5)  // nil
-        /// let nan = Interval<Double>.Unit(.nan)     // nil
-        /// ```
         @inlinable
         public init?(_ value: Scalar) {
             guard value.isFinite && value >= 0 && value <= 1 else { return nil }
             self._storage = value
         }
 
-        /// Creates a unit value without bounds checking.
-        ///
-        /// - Precondition: `value` must be in [0, 1] and finite (not NaN or infinity).
-        ///
-        /// Use this initializer only when you have already validated `value`,
-        /// or when constructing from known-safe values.
         @inlinable
         public init(
             _unchecked: Void,
@@ -72,20 +20,6 @@ extension Interval where Scalar: BinaryFloatingPoint {
             self._storage = value
         }
 
-        /// Creates a unit value by clamping to [0, 1].
-        ///
-        /// - Parameter value: Any scalar value
-        ///
-        /// Values below 0 become 0, values above 1 become 1.
-        /// NaN and negative infinity become 0, positive infinity becomes 1.
-        ///
-        /// ## Example
-        ///
-        /// ```swift
-        /// let clamped = Interval<Double>.Unit(clamping: 1.5)   // 1.0
-        /// let negative = Interval<Double>.Unit(clamping: -0.5) // 0.0
-        /// let nan = Interval<Double>.Unit(clamping: .nan)      // 0.0
-        /// ```
         @inlinable
         public init(clamping value: Scalar) {
             if value.isNaN {
@@ -97,146 +31,85 @@ extension Interval where Scalar: BinaryFloatingPoint {
     }
 }
 
-// MARK: - Underlying Access
-
 extension Interval.Unit {
-    /// The underlying value in [0, 1].
+
     @inlinable
     public var underlying: Scalar { _storage }
 }
 
-// MARK: - Sendable
-
 extension Interval.Unit: Sendable where Scalar: Sendable {}
 
-// MARK: - Equatable
-
 extension Interval.Unit: Equatable where Scalar: Equatable {
-    /// Returns whether two unit values are equal.
+
     @inlinable
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs._storage == rhs._storage
     }
 }
 
-// MARK: - Hashable
-
 extension Interval.Unit: Hashable where Scalar: Hashable {
-    /// Hashes the unit value into the given hasher.
+
     @inlinable
     public func hash(into hasher: inout Hasher) {
         hasher.combine(_storage)
     }
 }
 
-// MARK: - Comparable
-
 extension Interval.Unit: Comparable where Scalar: Comparable {
-    /// Returns whether one unit value is less than another.
+
     @inlinable
     public static func < (lhs: Self, rhs: Self) -> Bool {
         lhs._storage < rhs._storage
     }
 }
 
-// MARK: - Special Values
-
 extension Interval.Unit {
-    /// Zero (minimum value).
+
     @inlinable
     public static var zero: Self { Self(_unchecked: (), 0) }
 
-    /// One (maximum value).
     @inlinable
     public static var one: Self { Self(_unchecked: (), 1) }
 
-    /// Half (midpoint).
     @inlinable
     public static var half: Self { Self(_unchecked: (), Scalar(0.5)) }
 }
 
-// MARK: - Operations
-
 extension Interval.Unit {
-    /// The complement: 1 - self.
-    ///
-    /// For opacity, this gives transparency. For progress, this gives remaining.
-    ///
-    /// ## Example
-    ///
-    /// ```swift
-    /// let opacity: Opacity<Double> = .half
-    /// let transparency = opacity.complement  // 0.5
-    /// ```
+
     @inlinable
     public var complement: Self {
-        // Clamp to handle floating-point edge cases
+
         Self(_unchecked: (), min(max(1 - _storage, 0), 1))
     }
 
-    /// Linear interpolation from self to another value.
-    ///
-    /// Computes `self * (1 - t) + other * t`.
-    ///
-    /// - Parameters:
-    ///   - other: The target value
-    ///   - t: The interpolation parameter (0 = self, 1 = other)
-    /// - Returns: The interpolated value
-    ///
-    /// ## Example
-    ///
-    /// ```swift
-    /// let start: Opacity<Double> = .zero
-    /// let end: Opacity<Double> = .one
-    /// let mid = start.interpolated(to: end, at: .half)  // 0.5
-    /// ```
     @inlinable
     public func interpolated(to other: Self, at t: Self) -> Self {
-        // Clamp to handle floating-point edge cases
+
         let result = _storage * (1 - t._storage) + other._storage * t._storage
         return Self(_unchecked: (), min(max(result, 0), 1))
     }
 }
 
-// MARK: - Multiplication (Monoid)
-
 extension Interval.Unit {
-    /// Product of two unit values.
-    ///
-    /// The unit interval is closed under multiplication: the product of
-    /// values in [0, 1] is always in [0, 1].
-    ///
-    /// ## Example
-    ///
-    /// ```swift
-    /// let layer1: Opacity<Double> = Opacity(0.8)!
-    /// let layer2: Opacity<Double> = Opacity(0.5)!
-    /// let combined = layer1 * layer2  // 0.4
-    /// ```
+
     @inlinable
     public static func * (lhs: Self, rhs: Self) -> Self {
-        // Clamp to handle floating-point edge cases
+
         Self(_unchecked: (), min(max(lhs._storage * rhs._storage, 0), 1))
     }
 
-    /// Multiplies a unit value by another in place.
     @inlinable
     public static func *= (lhs: inout Self, rhs: Self) {
         lhs = lhs * rhs
     }
 }
 
-// MARK: - ExpressibleByFloatLiteral
-
 extension Interval.Unit: ExpressibleByFloatLiteral
 where Scalar: ExpressibleByFloatLiteral {
-    /// The float-literal type used to express a unit value.
+
     public typealias FloatLiteralType = Scalar.FloatLiteralType
 
-    /// Creates a unit value from a float literal.
-    ///
-    /// In debug builds, asserts that the literal is in [0, 1].
-    /// In release builds, clamps out-of-bounds values.
     @inlinable
     public init(floatLiteral value: FloatLiteralType) {
         let scalar = Scalar(floatLiteral: value)
@@ -244,22 +117,16 @@ where Scalar: ExpressibleByFloatLiteral {
             scalar.isFinite && scalar >= 0 && scalar <= 1,
             "Float literal must be finite and in [0, 1]"
         )
-        // Clamp in release builds for safety
+
         self._storage = scalar.isNaN ? 0 : min(max(scalar, 0), 1)
     }
 }
 
-// MARK: - ExpressibleByIntegerLiteral
-
 extension Interval.Unit: ExpressibleByIntegerLiteral
 where Scalar: ExpressibleByIntegerLiteral {
-    /// The integer-literal type used to express a unit value.
+
     public typealias IntegerLiteralType = Scalar.IntegerLiteralType
 
-    /// Creates a unit value from an integer literal (0 or 1).
-    ///
-    /// In debug builds, asserts that the literal is 0 or 1.
-    /// In release builds, clamps out-of-bounds values.
     @inlinable
     public init(integerLiteral value: IntegerLiteralType) {
         let scalar = Scalar(integerLiteral: value)
@@ -267,16 +134,14 @@ where Scalar: ExpressibleByIntegerLiteral {
             scalar >= 0 && scalar <= 1,
             "Integer literal must be 0 or 1"
         )
-        // Clamp in release builds for safety
+
         self._storage = min(max(scalar, 0), 1)
     }
 }
 
-// MARK: - Codable
-
 #if !hasFeature(Embedded)
     extension Interval.Unit: Codable where Scalar: Codable {
-        /// Decodes a unit value, failing if the decoded value is out of bounds.
+
         public init(from decoder: any Decoder) throws {
             let container = try decoder.singleValueContainer()
             let value = try container.decode(Scalar.self)
@@ -292,7 +157,6 @@ where Scalar: ExpressibleByIntegerLiteral {
             self = unit
         }
 
-        /// Encodes the unit value into the given encoder.
         public func encode(to encoder: any Encoder) throws {
             var container = encoder.singleValueContainer()
             try container.encode(_storage)
@@ -300,22 +164,6 @@ where Scalar: ExpressibleByIntegerLiteral {
     }
 #endif
 
-// MARK: - Type Aliases
-
-/// A normalized opacity value in [0, 1].
-///
-/// 0 = fully transparent, 1 = fully opaque.
-///
-/// ## Example
-///
-/// ```swift
-/// let opaque: Opacity<Double> = .one
-/// let halfVisible: Opacity<Double> = .half
-/// let faded = opaque * halfVisible  // 0.5
-/// ```
 public typealias Opacity<Scalar: BinaryFloatingPoint> = Interval<Scalar>.Unit
 
-/// A normalized alpha value in [0, 1].
-///
-/// Alias for `Opacity`. Use whichever name fits your domain better.
 public typealias Alpha<Scalar: BinaryFloatingPoint> = Opacity<Scalar>

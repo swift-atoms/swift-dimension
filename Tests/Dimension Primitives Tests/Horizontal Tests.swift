@@ -1,11 +1,7 @@
-// Horizontal Tests.swift
-
 import Direction_Primitive
 import Testing
 
 @testable import Dimension_Primitives
-
-// MARK: - Horizontal - Static Functions
 
 @Suite
 struct `Horizontal - Static Functions` {
@@ -24,8 +20,6 @@ struct `Horizontal - Static Functions` {
         #expect(Horizontal.opposite(of: .leftward) == .rightward)
     }
 }
-
-// MARK: - Horizontal - Properties
 
 @Suite
 struct `Horizontal - Properties` {
@@ -75,8 +69,6 @@ struct `Horizontal - Properties` {
     }
 }
 
-// MARK: - Horizontal - Initializers
-
 @Suite
 struct `Horizontal - Initializers` {
     @Test
@@ -104,8 +96,6 @@ struct `Horizontal - Initializers` {
         #expect(Horizontal(false) == .leftward)
     }
 }
-
-// MARK: - Horizontal - Protocol Conformances
 
 @Suite
 struct `Horizontal - Protocol Conformances` {
@@ -147,8 +137,6 @@ struct `Horizontal - Protocol Conformances` {
         #expect(desc == "rightward" || desc == "leftward")
     }
 }
-
-// MARK: - Horizontal - Operators
 
 @Suite
 struct `Horizontal - Operators` {

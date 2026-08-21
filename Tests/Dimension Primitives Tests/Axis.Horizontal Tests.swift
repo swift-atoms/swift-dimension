@@ -1,19 +1,11 @@
-// Axis.Horizontal Tests.swift
-
 import Axis_Primitive
 import Direction_Primitive
 import Testing
 
 @testable import Dimension_Primitives
 
-// MARK: - Axis.Horizontal Typealias Tests
-
 @Suite
 struct `Axis.Horizontal - Typealias` {
-    // The `Axis<N>.*` orientation typealiases are referenced in expression position
-    // only. A named local typed as the sugared value-generic typealias —
-    // `let h: Axis<2>.Horizontal = …` — crashes the +Asserts debug-info mangler
-    // (getMangledName / IRGenDebugInfo.cpp:1098). See swift-compiler-bug-catalog §A21.
 
     @Test
     func `Axis2 Horizontal is identical to Horizontal`() {
@@ -35,7 +27,7 @@ struct `Axis.Horizontal - Typealias` {
 
     @Test
     func `Horizontal available for 2D`() {
-        // Compile-time verification that the Axis<2>.Horizontal typealias exists.
+
         _ = Axis<2>.Horizontal.rightward
     }
 }

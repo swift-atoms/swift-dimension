@@ -1,19 +1,11 @@
-// Axis.Temporal Tests.swift
-
 import Axis_Primitive
 import Direction_Primitive
 import Testing
 
 @testable import Dimension_Primitives
 
-// MARK: - Axis.Temporal Typealias Tests
-
 @Suite
 struct `Axis.Temporal - Typealias` {
-    // The `Axis<N>.*` orientation typealiases are referenced in expression position
-    // only. A named local typed as the sugared value-generic typealias —
-    // `let t: Axis<4>.Temporal = …` — crashes the +Asserts debug-info mangler
-    // (getMangledName / IRGenDebugInfo.cpp:1098). See swift-compiler-bug-catalog §A21.
 
     @Test
     func `Axis Temporal is identical to Temporal`() {
@@ -35,7 +27,7 @@ struct `Axis.Temporal - Typealias` {
 
     @Test
     func `Temporal available for 4D`() {
-        // Compile-time verification that the Axis<4>.Temporal typealias exists.
+
         _ = Axis<4>.Temporal.future
     }
 }

@@ -1,10 +1,6 @@
-// Chirality Tests.swift
-
 import Testing
 
 @testable import Dimension_Primitives
-
-// MARK: - Chirality - Static Functions
 
 @Suite
 struct `Chirality - Static Functions` {
@@ -23,8 +19,6 @@ struct `Chirality - Static Functions` {
         #expect(Chirality.opposite(of: .right) == .left)
     }
 }
-
-// MARK: - Chirality - Properties
 
 @Suite
 struct `Chirality - Properties` {
@@ -49,8 +43,6 @@ struct `Chirality - Properties` {
     }
 }
 
-// MARK: - Chirality - Operators
-
 @Suite
 struct `Chirality - Operators` {
     @Test(arguments: [Chirality.left, Chirality.right])
@@ -68,8 +60,6 @@ struct `Chirality - Operators` {
         #expect(!Chirality.right == .left)
     }
 }
-
-// MARK: - Chirality - Protocol Conformances
 
 @Suite
 struct `Chirality - Protocol Conformances` {
@@ -105,8 +95,6 @@ struct `Chirality - Protocol Conformances` {
         #expect(set.count == 2)
     }
 }
-
-// MARK: - Chirality - Value Typealias
 
 @Suite
 struct `Chirality - Value Typealias` {

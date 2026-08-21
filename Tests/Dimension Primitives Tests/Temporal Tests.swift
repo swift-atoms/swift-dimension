@@ -1,11 +1,7 @@
-// Temporal Tests.swift
-
 import Direction_Primitive
 import Testing
 
 @testable import Dimension_Primitives
-
-// MARK: - Temporal - Static Functions
 
 @Suite
 struct `Temporal - Static Functions` {
@@ -24,8 +20,6 @@ struct `Temporal - Static Functions` {
         #expect(Temporal.opposite(of: .past) == .future)
     }
 }
-
-// MARK: - Temporal - Properties
 
 @Suite
 struct `Temporal - Properties` {
@@ -75,8 +69,6 @@ struct `Temporal - Properties` {
     }
 }
 
-// MARK: - Temporal - Initializers
-
 @Suite
 struct `Temporal - Initializers` {
     @Test
@@ -104,8 +96,6 @@ struct `Temporal - Initializers` {
         #expect(Temporal(false) == .past)
     }
 }
-
-// MARK: - Temporal - Protocol Conformances
 
 @Suite
 struct `Temporal - Protocol Conformances` {
@@ -147,8 +137,6 @@ struct `Temporal - Protocol Conformances` {
         #expect(desc == "future" || desc == "past")
     }
 }
-
-// MARK: - Temporal - Operators
 
 @Suite
 struct `Temporal - Operators` {
