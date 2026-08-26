@@ -1,6 +1,6 @@
 import Testing
 
-@testable import Dimension_Primitives
+@testable import Dimension
 
 @Suite
 struct `Chirality - Static Functions` {

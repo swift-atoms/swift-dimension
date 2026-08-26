@@ -1,4 +1,4 @@
-public import Real_Primitives
+public import Real
 
 public typealias Radian<Scalar> = Angle.Radian.Value<Scalar>
 

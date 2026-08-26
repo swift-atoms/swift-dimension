@@ -1,5 +1,5 @@
-@_spi(Internal) import Dimension_Primitives
-import Numeric_Primitives_Core
+@_spi(Internal) import Dimension
+import Numeric_Core
 import Testing
 
 private enum TestSpace: Numeric.Quantized {}

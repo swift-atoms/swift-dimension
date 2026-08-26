@@ -2,7 +2,7 @@ import Axis_Primitive
 import Direction_Primitive
 import Testing
 
-@testable import Dimension_Primitives
+@testable import Dimension
 
 @Suite
 struct `Axis.Vertical - Typealias` {

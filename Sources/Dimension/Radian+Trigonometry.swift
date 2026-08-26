@@ -1,4 +1,4 @@
-public import Real_Primitives
+public import Real
 
 extension Tagged
 where Tag == Angle.Radian, Underlying: BinaryFloatingPoint & Numeric.Transcendental {

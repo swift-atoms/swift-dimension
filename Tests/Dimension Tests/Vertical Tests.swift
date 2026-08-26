@@ -1,7 +1,7 @@
 import Direction_Primitive
 import Testing
 
-@testable import Dimension_Primitives
+@testable import Dimension
 
 @Suite
 struct `Vertical - Static Functions` {

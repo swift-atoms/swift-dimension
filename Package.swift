@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-dimension-primitives",
+    name: "swift-dimension",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -13,69 +13,69 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Dimension Primitives",
-            targets: ["Dimension Primitives"]
+            name: "Dimension",
+            targets: ["Dimension"]
         ),
         .library(
-            name: "Dimension Primitives Test Support",
-            targets: ["Dimension Primitives Test Support"]
+            name: "Dimension Test Support",
+            targets: ["Dimension Test Support"]
         ),
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-axis-primitives.git",
+            url: "https://github.com/swift-molecules/swift-axis.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-direction-primitives.git",
+            url: "https://github.com/swift-molecules/swift-direction.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-finite-primitives.git",
+            url: "https://github.com/swift-molecules/swift-finite.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-tagged-primitives.git",
+            url: "https://github.com/swift-molecules/swift-tagged.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-numeric-primitives.git",
+            url: "https://github.com/swift-molecules/swift-numeric.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-pair-primitives.git",
+            url: "https://github.com/swift-molecules/swift-pair.git",
             branch: "main"
         ),
     ],
     targets: [
         .target(
-            name: "Dimension Primitives",
+            name: "Dimension",
             dependencies: [
-                .product(name: "Axis Primitive", package: "swift-axis-primitives"),
-                .product(name: "Direction Primitive", package: "swift-direction-primitives"),
-                .product(name: "Finite Primitives", package: "swift-finite-primitives"),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Numeric Primitives Core", package: "swift-numeric-primitives"),
-                .product(name: "Real Primitives", package: "swift-numeric-primitives"),
-                .product(name: "Pair Primitives", package: "swift-pair-primitives"),
+                .product(name: "Axis Primitive", package: "swift-axis"),
+                .product(name: "Direction Primitive", package: "swift-direction"),
+                .product(name: "Finite", package: "swift-finite"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Numeric Core", package: "swift-numeric"),
+                .product(name: "Real", package: "swift-numeric"),
+                .product(name: "Pair", package: "swift-pair"),
             ]
         ),
         .target(
-            name: "Dimension Primitives Test Support",
+            name: "Dimension Test Support",
             dependencies: [
-                "Dimension Primitives",
+                "Dimension",
                 .product(
-                    name: "Finite Primitives Test Support",
-                    package: "swift-finite-primitives"
+                    name: "Finite Test Support",
+                    package: "swift-finite"
                 ),
             ],
             path: "Tests/Support"
         ),
         .testTarget(
-            name: "Dimension Primitives Tests",
+            name: "Dimension Tests",
             dependencies: [
-                "Dimension Primitives",
-                "Dimension Primitives Test Support",
+                "Dimension",
+                "Dimension Test Support",
             ]
         ),
     ],

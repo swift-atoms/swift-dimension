@@ -1,7 +1,7 @@
-import Dimension_Primitives_Test_Support
+import Dimension_Test_Support
 import Testing
 
-@testable import Dimension_Primitives
+@testable import Dimension
 
 @Suite
 struct `Tagged - Static Functions` {
