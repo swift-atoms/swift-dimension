@@ -25,11 +25,24 @@ let package = Package(
             targets: ["Dimension Apple Foundation Integration"]
         ),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(
+            url: "https://github.com/swift-atoms/swift-tagged.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-atoms/swift-numeric.git",
+            branch: "main"
+        ),
+    ],
     targets: [
         .target(
             name: "Dimension",
-            dependencies: []
+            dependencies: [
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Numeric", package: "swift-numeric"),
+                .product(name: "Numeric Standard Library Integration", package: "swift-numeric"),
+            ]
         ),
         .target(
             name: "Dimension Standard Library Integration",
@@ -47,6 +60,9 @@ let package = Package(
             dependencies: [
                 "Dimension",
                 "Dimension Standard Library Integration",
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Tagged Standard Library Integration", package: "swift-tagged"),
+                .product(name: "Numeric", package: "swift-numeric"),
             ]
         ),
     ],
