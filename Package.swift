@@ -44,7 +44,10 @@ let package = Package(
         ),
         .testTarget(
             name: "Dimension Tests",
-            dependencies: ["Dimension"]
+            dependencies: [
+                "Dimension",
+                "Dimension Standard Library Integration",
+            ]
         ),
     ],
     swiftLanguageModes: [.v6]

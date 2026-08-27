@@ -1,6 +1,7 @@
 import Testing
 
 @testable import Dimension
+import Dimension_Standard_Library_Integration
 
 @Suite
 struct `Winding - Static Functions` {
