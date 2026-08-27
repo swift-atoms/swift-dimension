@@ -105,65 +105,6 @@ extension Interval.Unit {
     }
 }
 
-extension Interval.Unit: ExpressibleByFloatLiteral
-where Scalar: ExpressibleByFloatLiteral {
-
-    public typealias FloatLiteralType = Scalar.FloatLiteralType
-
-    @inlinable
-    public init(floatLiteral value: FloatLiteralType) {
-        let scalar = Scalar(floatLiteral: value)
-        assert(
-            scalar.isFinite && scalar >= 0 && scalar <= 1,
-            "Float literal must be finite and in [0, 1]"
-        )
-
-        self._storage = scalar.isNaN ? 0 : min(max(scalar, 0), 1)
-    }
-}
-
-extension Interval.Unit: ExpressibleByIntegerLiteral
-where Scalar: ExpressibleByIntegerLiteral {
-
-    public typealias IntegerLiteralType = Scalar.IntegerLiteralType
-
-    @inlinable
-    public init(integerLiteral value: IntegerLiteralType) {
-        let scalar = Scalar(integerLiteral: value)
-        assert(
-            scalar >= 0 && scalar <= 1,
-            "Integer literal must be 0 or 1"
-        )
-
-        self._storage = min(max(scalar, 0), 1)
-    }
-}
-
-#if !hasFeature(Embedded)
-    extension Interval.Unit: Codable where Scalar: Codable {
-
-        public init(from decoder: any Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            let value = try container.decode(Scalar.self)
-            guard let unit = Self(value) else {
-                throw DecodingError.dataCorrupted(
-                    DecodingError.Context(
-                        codingPath: decoder.codingPath,
-                        debugDescription:
-                            "Value \(value) out of bounds for Interval.Unit (expected [0, 1])"
-                    )
-                )
-            }
-            self = unit
-        }
-
-        public func encode(to encoder: any Encoder) throws {
-            var container = encoder.singleValueContainer()
-            try container.encode(_storage)
-        }
-    }
-#endif
-
 public typealias Opacity<Scalar: BinaryFloatingPoint> = Interval<Scalar>.Unit
 
 public typealias Alpha<Scalar: BinaryFloatingPoint> = Opacity<Scalar>

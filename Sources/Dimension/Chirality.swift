@@ -1,4 +1,4 @@
-public enum Chirality: Sendable, Hashable, CaseIterable {
+public enum Chirality: Sendable, Hashable {
 
     case left
 
@@ -38,12 +38,3 @@ extension Chirality {
 
     public static var directX: Chirality { .left }
 }
-
-extension Chirality {
-
-    public typealias Value<Payload> = Pair<Chirality, Payload>
-}
-
-#if !hasFeature(Embedded)
-    extension Chirality: Codable {}
-#endif

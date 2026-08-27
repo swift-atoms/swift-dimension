@@ -17,66 +17,34 @@ let package = Package(
             targets: ["Dimension"]
         ),
         .library(
-            name: "Dimension Test Support",
-            targets: ["Dimension Test Support"]
+            name: "Dimension Standard Library Integration",
+            targets: ["Dimension Standard Library Integration"]
+        ),
+        .library(
+            name: "Dimension Apple Foundation Integration",
+            targets: ["Dimension Apple Foundation Integration"]
         ),
     ],
-    dependencies: [
-        .package(
-            url: "https://github.com/swift-molecules/swift-axis.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-molecules/swift-direction.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-molecules/swift-finite.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-molecules/swift-tagged.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-molecules/swift-numeric.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-molecules/swift-pair.git",
-            branch: "main"
-        ),
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "Dimension",
-            dependencies: [
-                .product(name: "Axis Primitive", package: "swift-axis"),
-                .product(name: "Direction Primitive", package: "swift-direction"),
-                .product(name: "Finite", package: "swift-finite"),
-                .product(name: "Tagged", package: "swift-tagged"),
-                .product(name: "Numeric Core", package: "swift-numeric"),
-                .product(name: "Real", package: "swift-numeric"),
-                .product(name: "Pair", package: "swift-pair"),
-            ]
+            dependencies: []
         ),
         .target(
-            name: "Dimension Test Support",
+            name: "Dimension Standard Library Integration",
+            dependencies: ["Dimension"]
+        ),
+        .target(
+            name: "Dimension Apple Foundation Integration",
             dependencies: [
                 "Dimension",
-                .product(
-                    name: "Finite Test Support",
-                    package: "swift-finite"
-                ),
-            ],
-            path: "Tests/Support"
+                "Dimension Standard Library Integration",
+            ]
         ),
         .testTarget(
             name: "Dimension Tests",
-            dependencies: [
-                "Dimension",
-                "Dimension Test Support",
-            ]
+            dependencies: ["Dimension"]
         ),
     ],
     swiftLanguageModes: [.v6]

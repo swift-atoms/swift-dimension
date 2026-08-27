@@ -1,5 +1,3 @@
-public import Direction_Primitive
-
 public enum Temporal: Sendable, Hashable {
 
     case future
@@ -18,30 +16,12 @@ extension Temporal {
     }
 }
 
-extension Temporal: Orientation {
-
-    @inlinable
-    public var direction: Direction {
-        switch self {
-        case .future: return .positive
-        case .past: return .negative
-        }
-    }
-
-    @inlinable
-    public init(direction: Direction) {
-        switch direction {
-        case .positive: self = .future
-        case .negative: self = .past
-        }
-    }
+extension Temporal {
 
     @inlinable
     public var opposite: Temporal {
         Self.opposite(of: self)
     }
-
-    public static let allCases: [Temporal] = [.future, .past]
 }
 
 extension Temporal {
@@ -52,17 +32,3 @@ extension Temporal {
     @inlinable
     public var isPast: Bool { self == .past }
 }
-
-extension Temporal: CustomStringConvertible {
-
-    public var description: String {
-        switch self {
-        case .future: return "future"
-        case .past: return "past"
-        }
-    }
-}
-
-#if !hasFeature(Embedded)
-    extension Temporal: Codable {}
-#endif

@@ -1,5 +1,3 @@
-public import Direction_Primitive
-
 public enum Horizontal: Sendable, Hashable {
 
     case rightward
@@ -18,30 +16,12 @@ extension Horizontal {
     }
 }
 
-extension Horizontal: Orientation {
-
-    @inlinable
-    public var direction: Direction {
-        switch self {
-        case .rightward: return .positive
-        case .leftward: return .negative
-        }
-    }
-
-    @inlinable
-    public init(direction: Direction) {
-        switch direction {
-        case .positive: self = .rightward
-        case .negative: self = .leftward
-        }
-    }
+extension Horizontal {
 
     @inlinable
     public var opposite: Horizontal {
         Self.opposite(of: self)
     }
-
-    public static let allCases: [Horizontal] = [.rightward, .leftward]
 }
 
 extension Horizontal {
@@ -52,17 +32,3 @@ extension Horizontal {
     @inlinable
     public var isLeftward: Bool { self == .leftward }
 }
-
-extension Horizontal: CustomStringConvertible {
-
-    public var description: String {
-        switch self {
-        case .rightward: return "rightward"
-        case .leftward: return "leftward"
-        }
-    }
-}
-
-#if !hasFeature(Embedded)
-    extension Horizontal: Codable {}
-#endif
