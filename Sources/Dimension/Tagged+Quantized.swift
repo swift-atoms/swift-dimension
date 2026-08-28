@@ -1,5 +1,4 @@
-public import Tagged
-public import Numeric
+import Numeric_Core
 
 extension Tagged where Underlying: BinaryFloatingPoint {
 

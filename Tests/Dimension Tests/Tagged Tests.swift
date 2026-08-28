@@ -1,6 +1,4 @@
-import Tagged
-import Tagged_Standard_Library_Integration
-import Dimension_Standard_Library_Integration
+import Dimension_Test_Support
 import Testing
 
 @testable import Dimension

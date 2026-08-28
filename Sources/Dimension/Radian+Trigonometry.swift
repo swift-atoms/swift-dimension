@@ -1,5 +1,4 @@
-public import Tagged
-public import Numeric
+public import Real
 
 extension Tagged
 where Tag == Angle.Radian, Underlying: BinaryFloatingPoint & Numeric.Transcendental {

@@ -1,4 +1,4 @@
-public import Tagged
+import Tagged
 
 extension Tagged where Underlying: FloatingPoint {
 

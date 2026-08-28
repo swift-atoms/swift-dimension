@@ -39,6 +39,27 @@ extension Scale: Comparable where N == 1, Scalar: FloatingPoint {
     }
 }
 
+#if !hasFeature(Embedded)
+    extension Scale: Codable where Scalar: Codable, Scalar: FloatingPoint {
+
+        public init(from decoder: any Decoder) throws {
+            var container = try decoder.unkeyedContainer()
+            var factors = InlineArray<N, Scalar>(repeating: .zero)
+            for i in 0..<N {
+                factors[i] = try container.decode(Scalar.self)
+            }
+            self.init(factors)
+        }
+
+        public func encode(to encoder: any Encoder) throws {
+            var container = encoder.unkeyedContainer()
+            for i in 0..<N {
+                try container.encode(factors[i])
+            }
+        }
+    }
+#endif
+
 extension Scale {
 
     @inlinable
@@ -176,5 +197,27 @@ extension Scale where Scalar: FloatingPoint {
     @inlinable
     public var inverted: Self {
         Self.inverted(self)
+    }
+}
+
+extension Scale: ExpressibleByFloatLiteral
+where N == 1, Scalar: ExpressibleByFloatLiteral & FloatingPoint {
+
+    public typealias FloatLiteralType = Scalar.FloatLiteralType
+
+    @inlinable
+    public init(floatLiteral value: FloatLiteralType) {
+        self.init(Scalar(floatLiteral: value))
+    }
+}
+
+extension Scale: ExpressibleByIntegerLiteral
+where N == 1, Scalar: ExpressibleByIntegerLiteral & FloatingPoint {
+
+    public typealias IntegerLiteralType = Scalar.IntegerLiteralType
+
+    @inlinable
+    public init(integerLiteral value: IntegerLiteralType) {
+        self.init(Scalar(integerLiteral: value))
     }
 }

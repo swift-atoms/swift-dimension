@@ -1,7 +1,6 @@
 import Testing
 
 @testable import Dimension
-import Dimension_Standard_Library_Integration
 
 @Suite
 struct `Chirality - Static Functions` {
@@ -94,5 +93,22 @@ struct `Chirality - Protocol Conformances` {
     func `Hashable produces unique hashes`() {
         let set: Set<Chirality> = [.left, .right, .left]
         #expect(set.count == 2)
+    }
+}
+
+@Suite
+struct `Chirality - Value Typealias` {
+    @Test
+    func `Value typealias for Pair`() {
+        let paired: Chirality.Value<String> = Pair(.left, "hand")
+        #expect(paired.first == .left)
+        #expect(paired.second == "hand")
+    }
+
+    @Test
+    func `Value is Pair type`() {
+        let value: Chirality.Value<Int> = Pair(.right, 42)
+        #expect(value.first == .right)
+        #expect(value.second == 42)
     }
 }

@@ -1,4 +1,4 @@
-public enum Winding: Sendable, Hashable {
+public enum Winding: Sendable, Hashable, CaseIterable {
 
     case clockwise
 
@@ -35,3 +35,12 @@ extension Winding {
 
     public static var ccw: Winding { .counterclockwise }
 }
+
+extension Winding {
+
+    public typealias Value<Payload> = Pair<Winding, Payload>
+}
+
+#if !hasFeature(Embedded)
+    extension Winding: Codable {}
+#endif

@@ -1,5 +1,5 @@
 import Dimension
-import Numeric
+import Numeric_Core
 import Testing
 
 enum TestQuantizedSpace: Numeric.Quantized {}

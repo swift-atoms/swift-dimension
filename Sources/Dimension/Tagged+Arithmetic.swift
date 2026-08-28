@@ -1,5 +1,3 @@
-public import Tagged
-
 @inlinable
 public func width<Space, Scalar>(
     _ dx: Displacement.X<Space>.Value<Scalar>
