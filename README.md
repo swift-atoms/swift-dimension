@@ -11,7 +11,7 @@ Every quantity is tagged with the coordinate space it lives in and the role it p
 ## Quick Start
 
 ```swift
-import Dimension_Primitives
+import Dimension
 
 // A coordinate space is just a phantom tag — declare one per logical space.
 enum Screen {}
@@ -45,7 +45,7 @@ Add to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-primitives/swift-dimension-primitives.git", branch: "main"),
+    .package(url: "https://github.com/swift-atoms/swift-dimension.git", branch: "main"),
 ]
 ```
 
@@ -53,7 +53,7 @@ dependencies: [
 .target(
     name: "App",
     dependencies: [
-        .product(name: "Dimension Primitives", package: "swift-dimension-primitives"),
+        .product(name: "Dimension", package: "swift-dimension"),
     ]
 )
 ```
@@ -78,7 +78,7 @@ Foundation-free, with no concurrency surface and no platform conditionals.
 | Orientation | `Direction`, `Horizontal`, `Vertical`, `Depth`, `Temporal` | A two-state axis convention conforming to `Orientation`. |
 | Handedness | `Chirality`, `Winding` | Left/right and clockwise/counterclockwise distinctions. |
 
-The two library products are `Dimension Primitives` (the umbrella consumers import) and `Dimension Primitives Test Support` (fixtures for downstream test targets).
+The two library products are `Dimension Primitives` (the umbrella consumers import) and `Dimension Test Support` (fixtures for downstream test targets).
 
 ---
 
@@ -121,14 +121,14 @@ Pre-1.0. The public API may change while the package remains on `branch: "main"`
 
 ## Related Packages
 
-Direct dependencies (siblings in the swift-primitives org):
+Direct dependencies (siblings in the swift org):
 
-- `swift-tagged-primitives` — `Tagged<Tag, Underlying>`, the phantom-tagging machinery every dimensional value is built on.
-- `swift-axis-primitives` — `Axis<N>`, the axis namespace the orientation typealiases attach to.
-- `swift-direction-primitives` — `Direction`, the canonical two-state orientation atom.
-- `swift-numeric-primitives` — `Numeric.Fraction`, the quantization protocol, and the real-number trigonometry surface.
-- `swift-finite-primitives` — `Finite.Enumerable`, `Ordinal`, and `Cardinal`, re-exported for convenience.
-- `swift-pair-primitives` — `Pair`, the carrier for orientation-paired values (`Oriented`).
+- `swift-tagged` — `Tagged<Tag, Underlying>`, the phantom-tagging machinery every dimensional value is built on.
+- `swift-axis` — `Axis<N>`, the axis namespace the orientation typealiases attach to.
+- `swift-direction` — `Direction`, the canonical two-state orientation atom.
+- `swift-numeric` — `Numeric.Fraction`, the quantization protocol, and the real-number trigonometry surface.
+- `swift-finite` — `Finite.Enumerable`, `Ordinal`, and `Cardinal`, re-exported for convenience.
+- `swift-pair` — `Pair`, the carrier for orientation-paired values (`Oriented`).
 
 ---
 
