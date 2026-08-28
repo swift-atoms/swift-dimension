@@ -1,7 +1,7 @@
-public import Axis_Primitive
-public import Direction_Primitive
+public import Axis
+public import Direction
 
 extension Axis {
 
-    public typealias Direction = Direction_Primitive.Direction
+    public typealias Direction = Direction.Direction
 }

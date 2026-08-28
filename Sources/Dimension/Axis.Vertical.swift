@@ -1,4 +1,4 @@
-public import Axis_Primitive
+public import Axis
 
 extension Axis where N == 2 {
 

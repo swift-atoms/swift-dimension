@@ -1,4 +1,4 @@
-import Direction_Primitive
+import Direction
 import Testing
 
 @testable import Dimension

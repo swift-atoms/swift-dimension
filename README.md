@@ -1,4 +1,4 @@
-# Dimension
+# Dimension Primitives
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
@@ -45,7 +45,7 @@ Add to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-molecules/swift-dimension.git", branch: "main"),
+    .package(url: "https://github.com/swift-atoms/swift-dimension.git", branch: "main"),
 ]
 ```
 
@@ -78,7 +78,7 @@ Foundation-free, with no concurrency surface and no platform conditionals.
 | Orientation | `Direction`, `Horizontal`, `Vertical`, `Depth`, `Temporal` | A two-state axis convention conforming to `Orientation`. |
 | Handedness | `Chirality`, `Winding` | Left/right and clockwise/counterclockwise distinctions. |
 
-The two library products are `Dimension` (the umbrella consumers import) and `Dimension Test Support` (fixtures for downstream test targets).
+The two library products are `Dimension Primitives` (the umbrella consumers import) and `Dimension Test Support` (fixtures for downstream test targets).
 
 ---
 
@@ -121,14 +121,14 @@ Pre-1.0. The public API may change while the package remains on `branch: "main"`
 
 ## Related Packages
 
-Direct dependencies (siblings in the swift-molecules org):
+Direct dependencies (siblings in the swift org):
 
-- `swift-tagged-primitives` — `Tagged<Tag, Underlying>`, the phantom-tagging machinery every dimensional value is built on.
-- `swift-axis-primitives` — `Axis<N>`, the axis namespace the orientation typealiases attach to.
-- `swift-direction-primitives` — `Direction`, the canonical two-state orientation atom.
-- `swift-numeric-primitives` — `Numeric.Fraction`, the quantization protocol, and the real-number trigonometry surface.
-- `swift-finite-primitives` — `Finite.Enumerable`, `Ordinal`, and `Cardinal`, re-exported for convenience.
-- `swift-pair-primitives` — `Pair`, the carrier for orientation-paired values (`Oriented`).
+- `swift-tagged` — `Tagged<Tag, Underlying>`, the phantom-tagging machinery every dimensional value is built on.
+- `swift-axis` — `Axis<N>`, the axis namespace the orientation typealiases attach to.
+- `swift-direction` — `Direction`, the canonical two-state orientation atom.
+- `swift-numeric` — `Numeric.Fraction`, the quantization protocol, and the real-number trigonometry surface.
+- `swift-finite` — `Finite.Enumerable`, `Ordinal`, and `Cardinal`, re-exported for convenience.
+- `swift-pair` — `Pair`, the carrier for orientation-paired values (`Oriented`).
 
 ---
 

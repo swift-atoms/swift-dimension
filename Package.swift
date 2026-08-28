@@ -23,27 +23,27 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-molecules/swift-axis.git",
+            url: "https://github.com/swift-atoms/swift-axis.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-direction.git",
+            url: "https://github.com/swift-atoms/swift-direction.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-finite.git",
+            url: "https://github.com/swift-atoms/swift-finite.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-tagged.git",
+            url: "https://github.com/swift-atoms/swift-tagged.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-numeric.git",
+            url: "https://github.com/swift-atoms/swift-numeric.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-pair.git",
+            url: "https://github.com/swift-atoms/swift-pair.git",
             branch: "main"
         ),
     ],
@@ -51,11 +51,11 @@ let package = Package(
         .target(
             name: "Dimension",
             dependencies: [
-                .product(name: "Axis Primitive", package: "swift-axis"),
-                .product(name: "Direction Primitive", package: "swift-direction"),
+                .product(name: "Axis", package: "swift-axis"),
+                .product(name: "Direction", package: "swift-direction"),
                 .product(name: "Finite", package: "swift-finite"),
                 .product(name: "Tagged", package: "swift-tagged"),
-                .product(name: "Numeric Core", package: "swift-numeric"),
+                .product(name: "Numeric", package: "swift-numeric"),
                 .product(name: "Real", package: "swift-numeric"),
                 .product(name: "Pair", package: "swift-pair"),
             ]
@@ -63,7 +63,7 @@ let package = Package(
         .target(
             name: "Dimension Test Support",
             dependencies: [
-                "Dimension",
+                .target(name: "Dimension"),
                 .product(
                     name: "Finite Test Support",
                     package: "swift-finite"
@@ -74,8 +74,8 @@ let package = Package(
         .testTarget(
             name: "Dimension Tests",
             dependencies: [
-                "Dimension",
-                "Dimension Test Support",
+                .target(name: "Dimension"),
+                .target(name: "Dimension Test Support"),
             ]
         ),
     ],

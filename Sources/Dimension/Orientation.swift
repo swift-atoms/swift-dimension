@@ -1,4 +1,4 @@
-public import Direction_Primitive
+public import Direction
 
 public protocol Orientation: Sendable, Hashable, CaseIterable where AllCases == [Self] {
 

@@ -1,4 +1,4 @@
-public import Direction_Primitive
+public import Direction
 
 public enum Horizontal: Sendable, Hashable {
 
