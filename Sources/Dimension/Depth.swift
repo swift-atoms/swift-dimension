@@ -1,6 +1,4 @@
-public import Direction
-
-public enum Depth: Sendable, Hashable {
+public enum Depth: Sendable, Hashable, CaseIterable {
 
     case forward
 
@@ -18,30 +16,12 @@ extension Depth {
     }
 }
 
-extension Depth: Orientation {
-
-    @inlinable
-    public var direction: Direction {
-        switch self {
-        case .forward: return .positive
-        case .backward: return .negative
-        }
-    }
-
-    @inlinable
-    public init(direction: Direction) {
-        switch direction {
-        case .positive: self = .forward
-        case .negative: self = .backward
-        }
-    }
+extension Depth {
 
     @inlinable
     public var opposite: Depth {
         Self.opposite(of: self)
     }
-
-    public static let allCases: [Depth] = [.forward, .backward]
 }
 
 extension Depth {

@@ -1,6 +1,4 @@
-public import Direction
-
-public enum Temporal: Sendable, Hashable {
+public enum Temporal: Sendable, Hashable, CaseIterable {
 
     case future
 
@@ -18,30 +16,12 @@ extension Temporal {
     }
 }
 
-extension Temporal: Orientation {
-
-    @inlinable
-    public var direction: Direction {
-        switch self {
-        case .future: return .positive
-        case .past: return .negative
-        }
-    }
-
-    @inlinable
-    public init(direction: Direction) {
-        switch direction {
-        case .positive: self = .future
-        case .negative: self = .past
-        }
-    }
+extension Temporal {
 
     @inlinable
     public var opposite: Temporal {
         Self.opposite(of: self)
     }
-
-    public static let allCases: [Temporal] = [.future, .past]
 }
 
 extension Temporal {

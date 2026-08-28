@@ -16,66 +16,17 @@ let package = Package(
             name: "Dimension",
             targets: ["Dimension"]
         ),
-        .library(
-            name: "Dimension Test Support",
-            targets: ["Dimension Test Support"]
-        ),
     ],
-    dependencies: [
-        .package(
-            url: "https://github.com/swift-atoms/swift-axis.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-atoms/swift-direction.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-atoms/swift-finite.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-atoms/swift-tagged.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-atoms/swift-numeric.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-atoms/swift-pair.git",
-            branch: "main"
-        ),
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "Dimension",
-            dependencies: [
-                .product(name: "Axis", package: "swift-axis"),
-                .product(name: "Direction", package: "swift-direction"),
-                .product(name: "Finite", package: "swift-finite"),
-                .product(name: "Tagged", package: "swift-tagged"),
-                .product(name: "Numeric", package: "swift-numeric"),
-                .product(name: "Real", package: "swift-numeric"),
-                .product(name: "Pair", package: "swift-pair"),
-            ]
-        ),
-        .target(
-            name: "Dimension Test Support",
-            dependencies: [
-                .target(name: "Dimension"),
-                .product(
-                    name: "Finite Test Support",
-                    package: "swift-finite"
-                ),
-            ],
-            path: "Tests/Support"
+            dependencies: []
         ),
         .testTarget(
             name: "Dimension Tests",
             dependencies: [
                 .target(name: "Dimension"),
-                .target(name: "Dimension Test Support"),
             ]
         ),
     ],
