@@ -1,16 +1,16 @@
-# swift-dimension
+# swift-spatial
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
-Declaration-owning namespaces and intrinsic dimensional concepts for Swift.
+Phantom-typed spatial dimensions with tagged value carriers for Swift.
 
-`Dimension` defines coordinate, displacement, extent, measure, angle, scale, interval, orientation-enum, chirality, winding, and spatial tag types without selecting carriers or importing integration domains.
+`Spatial` defines coordinate, displacement, extent, and measure tag types over a phantom `Space`, their `Tagged` value carriers, space-driven quantization, cross-spatial arithmetic, and scaling by `Scale` factors.
 
 ## Installation
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-atoms/swift-dimension.git", branch: "main"),
+    .package(url: "https://github.com/swift-atoms/swift-spatial.git", branch: "main"),
 ]
 ```
 
@@ -18,7 +18,7 @@ dependencies: [
 .target(
     name: "App",
     dependencies: [
-        .product(name: "Dimension", package: "swift-dimension"),
+        .product(name: "Spatial", package: "swift-spatial"),
     ]
 )
 ```
@@ -26,20 +26,19 @@ dependencies: [
 ## Concepts
 
 ```swift
-import Dimension
+import Spatial
+import Tagged
 
 enum Screen {}
 
-let _: Coordinate.X<Screen>.Type = Coordinate.X<Screen>.self
-let _: Displacement.Y<Screen>.Type = Displacement.Y<Screen>.self
-let _: Extent.Vector<3, Screen>.Type = Extent.Vector<3, Screen>.self
-let _: Area<Screen>.Type = Area<Screen>.self
+let x: Coordinate.X<Screen>.Value<Double> = Tagged(10.0)
+let dx: Displacement.X<Screen>.Value<Double> = Tagged(5.0)
 
-let forward = Depth.forward
-let backward = forward.opposite
+let moved = x + dx
+let area: Area<Screen>.Value<Double> = dx * dx
 ```
 
-The package contains one product, `Dimension`, and has no production package dependencies. Carrier-backed values and cross-domain behavior are supplied by focused molecules such as Axis Dimension, Dimension Direction, Dimension Pair, and Dimension Tagged.
+The package contains one product, `Spatial`, and depends on `swift-tagged`, `swift-numeric`, and `swift-scale`. Angle values live in `swift-angle`; orientation, chirality, and winding live in `swift-direction`.
 
 ## Community
 

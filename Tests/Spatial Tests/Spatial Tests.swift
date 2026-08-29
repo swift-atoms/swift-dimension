@@ -1,9 +1,9 @@
 import Testing
 
-@testable import Dimension
+@testable import Spatial
 
 @Suite
-struct `Dimension - Phantom Types` {
+struct `Spatial - Phantom Types` {
     enum TestSpace {}
 
     @Test
